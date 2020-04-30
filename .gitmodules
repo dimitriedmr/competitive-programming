@@ -2,3 +2,7 @@
 	path = April/SingleNumber
 	url = https://github.com/dimitriedmr/LeetCodeSingleNumber.git
 	branch = master
+[submodule "April/HappyNumber"]
+	path = April/HappyNumber
+	url = https://github.com/dimitriedmr/LeetCodeHappyNumber.git
+	branch = master
