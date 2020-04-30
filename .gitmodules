@@ -1,0 +1,4 @@
+[submodule "April/SingleNumber"]
+	path = April/SingleNumber
+	url = https://github.com/dimitriedmr/LeetCodeSingleNumber.git
+	branch = master
