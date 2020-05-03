@@ -6,7 +6,11 @@
 	path = April/HappyNumber
 	url = https://github.com/dimitriedmr/LeetCodeHappyNumber.git
 	branch = master
-[submodule "April/Maximum-Subarray"]
-	path = April/Maximum-Subarray
-	url = C:/Users/panai/Desktop/repos/LeetCode-Challenges/April/Maximum-Subarray
+[submodule "April/MaximumSubarray"]
+	path = April/MaximumSubarray
+	url = https://github.com/dimitriedmr/LeetcodeMaximumSubarray.git
+	branch = master
+[submodule "April/MoveZeros"]
+	path = April/MoveZeros
+	url = https://github.com/dimitriedmr/LeetcodeMoveZeros.git
 	branch = master
