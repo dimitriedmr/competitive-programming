@@ -14,3 +14,11 @@
 	path = April/MoveZeros
 	url = https://github.com/dimitriedmr/LeetcodeMoveZeros.git
 	branch = master
+[submodule "April/GroupAnagrams"]
+	path = April/GroupAnagrams
+	url = https://github.com/dimitriedmr/LeetcodeGroupAnagrams.git
+	branch = master
+[submodule "April/BestTimetoBuyandSellStockII"]
+	path = April/BestTimetoBuyandSellStockII
+	url = https://github.com/dimitriedmr/LeetcodeBestTimetoBuyandSellStockII.git
+	branch = master
