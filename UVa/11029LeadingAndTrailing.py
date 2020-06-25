@@ -13,7 +13,7 @@ def binExp (b,e):
 
 if __name__ == '__main__':
   stopCounter = 6
-  with open("UVa11029LeadingAndTrailing.input") as f:
+  with open("11029LeadingAndTrailing.input") as f:
     content = f.readlines()
   numbers = []   
   print (content[0])
