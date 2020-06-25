@@ -1,22 +1,32 @@
-9
+15
 a list of A, B, C and D
 a list of A, a list of P and Q, B, a list of X, Y and Z and C
 a list of A
 a list of a list of A and B
-
 a list of A, a list of B, a list of C
 a list of A, a list of B, C and D
 a list of A, a list of A
 a list of A and B and C
-
-
+a list of FAASDFADSDA
+a list of A, a list of B and FAASDFADSDA
+a list of A, B, a list of B and D and F
+a list of A, B, C, D
+a list of 
+a list of A, a list of B and D
+a list of A, a list of B and D and FAASDFADSDA
 #expected answers:
 (A B C D)
 (A (P Q) B (X Y Z) C)
 (A)
 AMBIGUOUS
-empty line
-(A (B (C)))
-(A (B C D))
-(A (A))
+AMBIGUOUS because (A (B (C))) and (A)(B)(C) is possible
+AMBIGUOUS (A (B C D))
+AMBIGUOUS (A (A))
 AMBIGUOUS
+(ABCDEF)
+AMBIGUOUS
+(A B (B D) F)
+AMBIGUOUS
+AMBIGUOUS
+AMBIGUOUS
+(A (B D) FAASDFADSDA)

@@ -1,41 +1,14 @@
 #include <stdio.h>
-#include <algorithm>
+
+#define RELEASE 1
+#define START_EXP_LEN 9
+#define END_EXP_LEN 3
 
 static const char startExp[10] = "a list of";
 static const char endExp[4] = "and";
 static const char errorAnswer[11] = "AMBIGUOUS";
 static char answer[999];
-#define START_EXP_LEN 9
-#define END_EXP_LEN 3
 
-static void prettyPrint(int length)
-{
-  int index = 0, index2 = 0, c = 0;
-  for(index = 0; index < length; ++index)
-  {
-    c = answer[index];
-    if(c != ')' && c != '(')
-    {
-      index2 = index - 1;
-      if(index2 >= 0 && answer[index2] == ')')
-      {
-        printf(" ");
-      }
-      
-      printf("%c", c);
-      
-      index2 = index + 1;
-      if(index2 < length && answer[index2] != ')')
-      {
-        printf(" ");
-      }
-    }
-    else
-    {
-      printf("%c",c);
-    }
-  }
-}
 static void checkEnds(bool &startFlag, bool &endFlag, bool &errorFlag)
 {
   int startExpIndex = 1;
@@ -77,6 +50,7 @@ void processLine()
   
   do {
     inputChar = getchar();
+    
     if(inputChar == 'a')
     {
       checkEnds(startFlag,endFlag,errorFlag);
@@ -102,20 +76,38 @@ void processLine()
         }
       }
     }
-    else if(inputChar == ',' || inputChar == ' ' || 
-            inputChar == '\n' || inputChar == '\r')
+    else if(inputChar == ',')
+    {
+      //answer[answerIndex++] = ' ';
+    }else if(inputChar == ' ' || inputChar == '\n' || inputChar == '\r')
     {
       //do nothing
     }else if(inputChar >= 'A' && inputChar <= 'Z')
     {
-      answer[answerIndex++] = inputChar;
-      
+      if(answer[answerIndex - 1] != '(')
+        answer[answerIndex++] = ' ';
       noElements = false;
       
       if(endFlag == true)
       {
+        while(inputChar >= 'A' && inputChar <= 'Z')
+        {
+          answer[answerIndex++] = inputChar;
+          inputChar = getchar();
+        }
         answer[answerIndex++] = ')';
         endFlag = false; //reset
+      }
+      else
+      {
+        while(inputChar >= 'A' && inputChar <= 'Z')
+        {
+          answer[answerIndex++] = inputChar;
+          inputChar = getchar();
+        }
+        if(inputChar == ',')
+        {
+        }
       }
     }else
     {
@@ -128,31 +120,54 @@ void processLine()
     
     if(startFlag == true)
     {
+      
+      if(answerIndex > 0 && answer[answerIndex - 1] >= 'A' && answer[answerIndex - 1] <= 'Z')
+        answer[answerIndex++] = ' ';
       answer[answerIndex++]='(';
       startFlag = false; //reset
     }
   } while (inputChar != '\n' && !errorFlag);
   
-  while(openLists > closeLists)
+  if(openLists > closeLists)
   {
-    answer[answerIndex++] = ')';
-    closeLists++;
+    if(openLists == 1 && answerIndex != 1)
+    {
+      for(int tempIndex = 0; tempIndex < answerIndex && !errorFlag; ++ tempIndex)
+      {
+        if(answer[tempIndex]== ' ')
+          errorFlag = true;
+      }
+      answer[answerIndex++] = ')';
+    }
+    else
+    {
+      errorFlag = true;
+    }
+    if(closeLists)
+    {
+      errorFlag = true;
+    }
   }
-  
+  //while(openLists > closeLists)
+  //{
+  //  answer[answerIndex++] = ')';
+  //  closeLists++;
+  //}
   answer[answerIndex]='\0';
-  
   if(errorFlag)
   {
-    do
-    {
-      inputChar = getchar(); //flush
-    } while (inputChar != '\n');
-    printf(errorAnswer);
+    puts(errorAnswer);
   }
   else
   {
-    prettyPrint(answerIndex);
+    puts(answer);
   }
+  
+  //flush
+  while (inputChar != '\n')
+  {
+    inputChar = getchar();
+  } 
 
 }
 
@@ -163,16 +178,18 @@ int main ()
   // A
     
   unsigned long long N = 0; 
-  
-  //freopen ("gym_100963_A.in","r",stdin);
+#ifndef RELEASE
+  freopen ("gym_100963_A.in","r",stdin);
+#endif
   scanf("%llu\n",&N);
   
   while(N > 0)
   { 
     processLine();
-    printf ("\n");
     N = N - 1;
   }
-  //fclose(stdin);
+#ifndef RELEASE
+  fclose(stdin);
+#endif
   return 0;
 }
