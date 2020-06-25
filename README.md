@@ -1,6 +1,9 @@
-LeetCode naming: 
+Problem source naming:
+LeetCode: 
 	problemTitle.cpp
-UVa naming: 
+UVa: 
 	sourceShortName_problemNumber_problemTitle.cpp
-SPOJ naming:
+SPOJ:
 	sourceShortName_shortProblemTitle.cpp
+Codechef:
+	problemCode.cpp
