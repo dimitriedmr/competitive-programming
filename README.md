@@ -1,2 +1,2 @@
 # Competitive programming
-It contains solutions to some problems.
+It contains solutions to some problems.  
