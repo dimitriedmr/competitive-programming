@@ -1,3 +1,4 @@
 # Coderbyte - interview prep
 Problem source naming: problemTitle.cpp  
-FindIntersection ; in progress  
+FindIntersection ; Accepted  
+QuestionsMarks ; Accepted  
