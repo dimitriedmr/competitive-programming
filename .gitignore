@@ -1,3 +1,9 @@
 *
 !/**/
 !*.*
+!*.cpp
+!*.c
+*.in
+*.out
+*.exe
+documentatie/
