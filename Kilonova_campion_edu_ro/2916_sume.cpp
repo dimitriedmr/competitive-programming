@@ -2,84 +2,72 @@
 
 using namespace std;
 typedef long long ll;
-
 struct Problem
 {
     ll N;
-    vector<ll> divs;
-    set<ll> divs2N;
-    vector<pair<ll, ll>> result;
-    const double epsilon = 0.1;
+    unordered_set<ll> divs;
+    map<ll, ll> result;
 
     void read()
     {
         cin >> N;
     }
 
-    void divisors(int x)
+    void divisors(const int x)
     {
         ll d = 2;
         // trivials
-        divs.push_back(1);
-        divs.push_back(x);
+        divs.insert(1);
+        divs.insert(x);
         // factors
         while (d * d < x)
         {
             if (x % d == 0)
             {
-                divs.push_back(d);
-                divs.push_back(x / d);
+                divs.insert(d);
+                divs.insert(x / d);
             }
             ++d;
         }
         if (d * d == x)
-            divs.push_back(d);
+            divs.insert(d);
     }
 
-    void add(ll d)
+    bool odd(const ll n){
+        // n is odd
+        return (n % 2 == 1);
+    }
+
+    bool even(const ll n){
+        // n is even and N/n must be x.5 
+        // <=> N/n = q*(1/2) <=> 2N=q*n <=> n | 2N
+        return ((n % 2 == 0) && (N % n != 0) && (2*N % n == 0));
+    }
+
+    void add(const unordered_set<ll> *ds, bool (Problem::*const func)(const ll))
     {
-        ll first = N / d - (d - 1) / 2;
-        result.push_back(make_pair(d, first));
+        for (ll d : *ds)
+            if ((this->*func)(d))
+                result[d] = N / d - (d - 1) / 2;
     }
 
-    void n_odd()
-    {
-        for (ll d : divs)
-            if (d % 2 == 1 && d != 1) // skip a sum having one term
-                add(d);
-    }
-
-    void n_even()
-    {
-        double fraction;
-        // N/n must be x.5 <=> N/n = q*(1/2) <=> 2N=q*n <=> n | 2N
-        divs2N.insert(divs.begin(), divs.end());
-        for (ll d : divs)
-        {
-            divs2N.insert(d * 2);
-        }
-        for (ll d : divs2N)
-            if (d % 2 == 0)
-            {
-                // and N/n must have .5; thus use double and avoid direct comparison
-                fraction = (double)N / d;
-                if (!(ceil(fraction) - fraction < epsilon))
-                    add(d);
-            }
-    }
-
-    void run(ll N)
+    void run(const ll N)
     {
         // first number = SUM / n + (n - 1) / 2
-        // thus there are two cases, when:
-        n_odd();
-        n_even();
+        // there are two cases, when: n is odd and n is even
+        divs.erase(1);
+        add(&divs, &Problem::odd);
+        divs.insert(1);
+        for (ll d : divs)
+        {
+            divs.insert(d * 2);
+        }
+        add(&divs, &Problem::even);
     }
 
     void print()
     {
         cout << result.size() << '\n';
-        sort(result.begin(), result.end());
         for (pair<ll, ll> r : result)
             cout << r.first << ' ' << r.second << '\n';
     }
