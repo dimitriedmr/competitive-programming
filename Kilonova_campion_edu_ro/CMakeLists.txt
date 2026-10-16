@@ -1,0 +1,11 @@
+cmake_minimum_required(VERSION 3.10.0)
+project(Kilonova_campion_edu_ro VERSION 0.1.0 LANGUAGES C CXX)
+
+set(CMAKE_CXX_COMPILER g++)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(CMAKE_COLOR_DIAGNOSTICS ON)
+set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -g3 -ggdb")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g3 -ggdb")
+add_executable(2911_cofetar 2911_cofetar.cpp)

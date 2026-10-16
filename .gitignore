@@ -6,4 +6,5 @@
 *.in
 *.out
 *.exe
-documentatie/
+_documentatie/
+*/build/*
