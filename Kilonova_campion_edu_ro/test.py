@@ -28,7 +28,6 @@ def find_input_files(script_dir: str, executable_name: str) -> List[str]:
                     input_file += [splitext(full_path)[0]]
     return input_file[1:]
 
-
 def scan_subdirectories(base_dir: str) -> List[str]:
     """Recursively find subdirectories under base_dir."""
     subdirs = []
@@ -38,14 +37,12 @@ def scan_subdirectories(base_dir: str) -> List[str]:
             subdirs.extend(scan_subdirectories(entry.path))
     return subdirs
 
-
 def is_executable(file_path: str) -> bool:
     """Check if a file is executable."""
     if isfile(file_path) and access(file_path, X_OK):
         mode = os_stat(file_path).st_mode
         return bool(mode & (S_IXUSR | S_IXGRP | S_IXOTH))
     return False
-
 
 def process_subdirectories():
     """Find executable in subdirectories and run comparison."""
@@ -67,7 +64,6 @@ def process_subdirectories():
     executable_name = (splitext(basename(exe_path))[0]).split("_")[1]
     input_file_paths = find_input_files(script_dir, executable_name)
     return exe_path, input_file_paths
-
 
 def compare(var1, var2) -> bool:
     """
@@ -112,7 +108,6 @@ def compare(var1, var2) -> bool:
     logger.info(msg1)
     logger.info(msg2)
     return (fail != 0)
-
 
 def execute(exe_path: str, input_file_paths:List[str]) -> None:
     """Execute the executable with the input file as stdin and compare output."""
@@ -190,9 +185,15 @@ def execute(exe_path: str, input_file_paths:List[str]) -> None:
                 passed += 1
     logger.info(f"Tests {passed=}, {failed=}\t time is 10x that website")
             
-
 if __name__ == "__main__":
     try:
+        """
+        expected files: 
+        <number>_<name>.cpp <number>_<name>.exe; e.g. 2911_cofetar.cpp 
+        I/O files to executable: <name>.in; <name>.out
+        kilonova files after one submission: <testNbr>-<name>.in; <testNbr>-<name>.out
+        use cmake to test 1st time
+        """
         exe_path, input_file_paths = process_subdirectories()
         # Move the file to the root directory
         new_exe_path = join(dirname(dirname(exe_path)), basename(exe_path))
