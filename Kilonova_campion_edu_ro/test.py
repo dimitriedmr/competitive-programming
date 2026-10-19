@@ -8,9 +8,9 @@ from time import time
 from typing import Tuple, List
 
 # ANSI color codes
-GREEN = ""#"\033[92m"  # Bright green
-RED = ""#"\033[91m"  # Bright red
-RESET = ""#"\033[0m"  # Reset to default color
+GREEN = "" #"\033[92m"  # Bright green
+RED = "" #"\033[91m"  # Bright red
+RESET = "" #"\033[0m"  # Reset to default color
 
 # Minimal logging setup
 basicConfig(level=DEBUG, format="%(message)s")

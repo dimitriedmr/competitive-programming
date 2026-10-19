@@ -41,5 +41,3 @@ get_filename_component(PROJECT_NAME "${latest_file_normalized}" NAME_WE)
 
 # Add the executable with the same name as the project
 add_executable(${PROJECT_NAME} ${PROJECT_NAME}.cpp)
-
-# debug not working!!!
