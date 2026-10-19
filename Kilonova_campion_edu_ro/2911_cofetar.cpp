@@ -48,7 +48,6 @@ struct Cofetar
     // output:
     int min_total_cost = INT_MAX;
     vector<int> ingredients; // their location
-    string s_ingredients = ""; // to apply lexycographic order
 
     void _read(void)
     {
@@ -163,7 +162,6 @@ struct Cofetar
         */
 
         int i = 0;
-        int j;
         int i_ordered = 0;
         Pair p;
         // order prices
@@ -251,12 +249,11 @@ struct Cofetar
         0  1  4  5
         20 30 90 100
         2  5  4  6
-        and rearanged to keep proportions locations:
+        and answer is rearanged to keep proportions locations:
         5  4  2  6
         */
         int i = 1;
         vector<int> new_answer(m);
-        string new_sanswer = "";
         if (stack_ing_cost[m] < min_total_cost)
         {
             ingredients.clear();
@@ -268,28 +265,10 @@ struct Cofetar
             ++i;
         }
         ingredients = new_answer;
-        /*
-        i = 0;
-        while (i < m)
-        {
-            new_sanswer += (char)new_answer[i];
-            ++i;
-        }
-        if (ingredients.empty())
-        {
-            ingredients = new_answer;
-            s_ingredients = new_sanswer;
-        }
-        else if (new_sanswer > s_ingredients)
-        {
-            ingredients = new_answer;
-            s_ingredients = new_sanswer;
-        }*/
     }
 
     void _bkt(void)
     {
-        int i;
         int sp = 1; // sp start from 1, stack[0]= 0 and sp-1 works
         stack_ings_restricted.resize(m + 1, 0);
         stack_ing_pos.resize(m + 1, 0);
