@@ -9,10 +9,18 @@ set(CMAKE_COLOR_DIAGNOSTICS ON)
 set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -g3 -ggdb")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g3 -ggdb")
 
-# Directory to search
+message("It shall contain the cpp file: CMAKE_SOURCE_DIR:\n ${CMAKE_SOURCE_DIR}")
+
+set(CMAKE_CURRENT_BINARY_DIR ${CMAKE_SOURCE_DIR})
+message("CMAKE_CURRENT_BINARY_DIR: ${CMAKE_CURRENT_BINARY_DIR}")
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR})
+message("CMAKE_RUNTIME_OUTPUT_DIRECTORY: ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
+
+# search for cpp file
 set(SEARCH_DIR "${CMAKE_SOURCE_DIR}")
 # Recursively find all .cpp files
-file(GLOB_RECURSE cpp_files "${SEARCH_DIR}/*.cpp")
+file(GLOB cpp_files "${SEARCH_DIR}/*.cpp") # not GLOB_RECURSE
 
 if(cpp_files)
     set(latest_file "")
@@ -39,5 +47,6 @@ endif()
 
 get_filename_component(PROJECT_NAME "${latest_file_normalized}" NAME_WE)
 
+message("file: ${PROJECT_NAME}.cpp")
 # Add the executable with the same name as the project
 add_executable(${PROJECT_NAME} ${PROJECT_NAME}.cpp)

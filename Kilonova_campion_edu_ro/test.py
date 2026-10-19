@@ -24,7 +24,6 @@ class Test:
         self.project_name = name # overide when <project_name>.in file isn't used
         self._f_in = ".in"
         self._f_out = ".out"
-        self.build_dir = "build" # subdir of dir_path
         self.exe_path = ""
         self._timeout = 1  # s
         self.exe_out_f_path = ""
@@ -45,17 +44,12 @@ class Test:
         """
         Find executable in build dir and tests. 
         """
-        build_subdir_path = ""
         for entry in scandir(self.dir_path):
-            if self.build_dir in entry.name and entry.is_dir():
-                build_subdir_path = entry.path
-                for subentry in scandir(entry.path):
-                    if (subentry.is_file() and access(subentry.path, X_OK) and
-                        stat(subentry.path).st_mode & (S_IXUSR | S_IXGRP | S_IXOTH)):
-                            self.exe_path = subentry.path
+            if (entry.is_file() and access(entry.path, X_OK) and
+                stat(entry.path).st_mode & (S_IXUSR | S_IXGRP | S_IXOTH)):
+                    self.exe_path = entry.path
             if not self.project_name and isfile(entry.path) and self._f_in in entry.name:
                 self.project_name = splitext(entry.name)[0] # remove extension
-        assert build_subdir_path == join(self.dir_path, self.build_dir), "build directory not found. do build!"
         assert len(self.exe_path) > 1, "executable isn't found. do clean, rebuild!"
 
         self.exe_out_f_path = join(self.dir_path, self.project_name + self._f_out)
